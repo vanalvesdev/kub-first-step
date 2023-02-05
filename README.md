@@ -26,7 +26,7 @@ kubectl apply -f master-deployment.yaml
 ## Tasks App
 At this project we're deploying 3 applications that communicate with each other using a built-in DNS with the path "service.namespace"
 
-IMAGEM
+![image](https://user-images.githubusercontent.com/11382553/216840319-5979b2c5-07cf-4f74-962d-92b6d1d5cd8a.png)
 
 Before all it's necessary to start up the minikube with the command:
 minikube start
