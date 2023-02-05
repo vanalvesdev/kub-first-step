@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: story
+  template:
+    metadata:
+      labels: 
+        app: story
+    spec:
+      containers: 
+        - name: story
+          image: vaanalvesr/kub-story-app:latest
+          imagePullPolicy: Always
+          env:
+            - name: STORY_FOLDER
+              valueFrom:
+                configMapKeyRef:
+                  name: datastore-env
+                  key: folder
+              # value: 'story'
+          volumeMounts:
+            - mountPath: /app/story
+              name: story-volume
+          livenessProbe:
+            httpGet: 
+              path: /
+              port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5
+      volumes:
+        - name: story-volume
+          persistentVolumeClaim:
+            claimName: host-pvc

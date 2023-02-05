@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users
+          image: vaanalvesr/kub-tasks-users-api:latest
+          env:
+            - name: AUTH_ADDRESS
+              # service_name + namespace
+              value: "auth-service.default"
